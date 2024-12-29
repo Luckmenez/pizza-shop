@@ -27,7 +27,7 @@
     "shadcn-ui": "^0.9.4",
     "sonner": "^1.7.1",
     "tailwind-merge": "^2.5.2",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
   },
   "devDependencies": {
     "@rocketseat/eslint-config": "^2.2.2",
