@@ -8,6 +8,7 @@ import { router } from './routes'
 export function App() {
   return (
     <HelmetProvider>
+      <Toaster richColors />
       <Helmet titleTemplate="%s | pizza.shop" />
     </HelmetProvider>
 }
