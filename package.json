@@ -25,6 +25,7 @@
     "react-hook-form": "^7.54.1",
     "react-router": "^7.0.2",
     "shadcn-ui": "^0.9.4",
+    "sonner": "^1.7.1",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7"
   },
