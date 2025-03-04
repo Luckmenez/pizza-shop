@@ -1,5 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { Building, ChevronDown, LogOut } from 'lucide-react'
+
+import { getManagedRestaurant } from '@/api/get-managed-restaurant'
 import { getProfile } from '@/api/get-profile'
 
 import { Button } from './ui/button'
@@ -17,6 +19,13 @@ export function AccountMenu() {
     queryFn: getProfile,
     queryKey: ['profile'],
   })
+
+  const { data: managedRestaurant, isLoading: isLoadingManagedRestaurant } =
+    useQuery<{ name: string }>({
+      queryFn: getManagedRestaurant,
+      queryKey: ['managed-restaurant'],
+    })
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
