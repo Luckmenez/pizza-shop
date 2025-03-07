@@ -1,6 +1,7 @@
 import { DialogTrigger } from '@radix-ui/react-dialog'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { Building, ChevronDown, LogOut } from 'lucide-react'
+import { useNavigate } from 'react-router'
 
 import { getManagedRestaurant } from '@/api/get-managed-restaurant'
 import { getProfile } from '@/api/get-profile'
@@ -20,6 +21,7 @@ import {
 import { Skeleton } from './ui/skeleton'
 
 export function AccountMenu() {
+  const navigate = useNavigate()
   const { data: profile, isLoading: isLoadingProfile } = useQuery({
     queryFn: getProfile,
     queryKey: ['profile'],
@@ -78,9 +80,15 @@ export function AccountMenu() {
               <span>Perfil da loja</span>
             </DropdownMenuItem>
           </DialogTrigger>
-          <DropdownMenuItem className="mr-2 flex items-center gap-2 text-rose-500 dark:text-rose-400">
-            <LogOut className="h-4 w-4" />
-            <span>Sair</span>
+          <DropdownMenuItem
+            asChild
+            className="mr-2 flex items-center gap-2 text-rose-500 dark:text-rose-400"
+            disabled={isSigningOut}
+          >
+            <button className="w-full" onClick={() => signOutFn()}>
+              <LogOut className="h-4 w-4" />
+              <span>Sair</span>
+            </button>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
