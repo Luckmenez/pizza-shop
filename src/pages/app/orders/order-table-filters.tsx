@@ -23,6 +23,12 @@ type OrderFiltersSchema = z.infer<typeof orderFiltersSchema>
 
 export function OrderTableFilters() {
   const [searchParams, setSearchParams] = useSearchParams()
+
+  const orderId = searchParams.get('orderId')
+  const customerName = searchParams.get('customerName')
+  const status = searchParams.get('status')
+
+
   return (
     <form className="flex items-center gap-2">
       <span className="text-sm font-semibold">Filtors:</span>
