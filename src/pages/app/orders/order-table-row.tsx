@@ -6,6 +6,7 @@ import { useState } from 'react'
 
 import { approvelOrder } from '@/api/approve-order'
 import { cancelOrder } from '@/api/cancel-order'
+import { deliverlOrder } from '@/api/deliver-order'
 import { dispatchlOrder } from '@/api/dispatch-order'
 import { getOrdersResponse } from '@/api/get-orders'
 import { OrderStatus } from '@/components/order-status'
@@ -74,6 +75,14 @@ export function OrderTableRow({ order }: OrderTableRowProps) {
       mutationFn: dispatchlOrder,
       onSuccess: (_, { orderId }) => {
         updateOrderStatusOnCache(orderId, 'delivering')
+      },
+    })
+
+  const { mutateAsync: deliverOrderFn, isPending: isDeliverOrder } =
+    useMutation({
+      mutationFn: deliverlOrder,
+      onSuccess: (_, { orderId }) => {
+        updateOrderStatusOnCache(orderId, 'delivered')
       },
     })
 
