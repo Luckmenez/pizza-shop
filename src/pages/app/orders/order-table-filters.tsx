@@ -1,5 +1,6 @@
 import { Search, X } from 'lucide-react'
 import { Controller, useForm } from 'react-hook-form'
+import { useSearchParams } from 'react-router'
 import { z } from 'zod'
 
 import { Button } from '@/components/ui/button'
@@ -21,6 +22,7 @@ const orderFiltersSchema = z.object({
 type OrderFiltersSchema = z.infer<typeof orderFiltersSchema>
 
 export function OrderTableFilters() {
+  const [searchParams, setSearchParams] = useSearchParams()
   return (
     <form className="flex items-center gap-2">
       <span className="text-sm font-semibold">Filtors:</span>
