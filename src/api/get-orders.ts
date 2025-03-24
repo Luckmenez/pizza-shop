@@ -2,6 +2,9 @@ import { api } from '@/lib/axios'
 
 interface getOrdersQuery {
   pageIndex?: number | null
+  orderId?: string | null
+  customerName?: string | null
+  status?: string | null
 }
 
 interface getOrdersResponse {
