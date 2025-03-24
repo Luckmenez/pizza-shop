@@ -18,13 +18,39 @@ export function MonthCanceledOrdersAmountCard() {
         <DollarSign className="h-4 w-4 text-muted-foreground" />
       </CardHeader>
       <CardContent className="space-y-1">
-        <span className="text-2xl font-bold tracking-tight">
-          32
-          <p className="text-xs text-muted-foreground">
-            <span className="text-emerald-500 dark:text-emerald-400">-4%</span>{' '}
-            em relação ao mês passado
-          </p>
-        </span>
+        {monthCanceledOrdersAmount && (
+          <span className="text-2xl font-bold tracking-tight">
+            {monthCanceledOrdersAmount.amount.toLocaleString('pt-BR')}
+            <p className="text-xs text-muted-foreground">
+              {monthCanceledOrdersAmount.diffFromLastMonth < 0 && (
+                <>
+                  <span className="text-emerald-500 dark:text-emerald-400">
+                    +{monthCanceledOrdersAmount.diffFromLastMonth}%
+                  </span>{' '}
+                  em relação a ontem
+                </>
+              )}
+
+              {monthCanceledOrdersAmount.diffFromLastMonth > 0 && (
+                <>
+                  <span className="text-rose-500 dark:text-rose-400">
+                    {monthCanceledOrdersAmount.diffFromLastMonth}%
+                  </span>{' '}
+                  em relação a ontem
+                </>
+              )}
+
+              {monthCanceledOrdersAmount.diffFromLastMonth === 0 && (
+                <>
+                  <span className="text-foreground">
+                    -{monthCanceledOrdersAmount.diffFromLastMonth}%
+                  </span>{' '}
+                  em relação a ontem
+                </>
+              )}
+            </p>
+          </span>
+        )}
       </CardContent>
     </Card>
   )
