@@ -63,6 +63,20 @@ export function OrderTableFilters() {
     })
   }
 
+  function handleClearFilters() {
+    setSearchParams((state) => {
+      state.delete('orderId')
+      state.delete('customerName')
+      state.delete('status')
+      state.set('page', '1')
+      return state
+    })
+    reset({
+      orderId: '',
+      customerName: '',
+      status: 'all',
+    })
+  }
 
   return (
     <form className="flex items-center gap-2">
