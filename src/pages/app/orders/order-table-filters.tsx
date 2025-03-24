@@ -28,6 +28,14 @@ export function OrderTableFilters() {
   const customerName = searchParams.get('customerName')
   const status = searchParams.get('status')
 
+  const { register, handleSubmit, control, reset } =
+    useForm<OrderFiltersSchema>({
+      defaultValues: {
+        orderId: orderId ?? '',
+        customerName: customerName ?? '',
+        status: status ?? 'all',
+      },
+    })
 
   return (
     <form className="flex items-center gap-2">
