@@ -1,8 +1,10 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { formatDistanceToNow } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import { ArrowRight, Search, X } from 'lucide-react'
 import { useState } from 'react'
 
+import { getOrdersResponse } from '@/api/get-orders'
 import { OrderStatus } from '@/components/order-status'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogTrigger } from '@/components/ui/dialog'
@@ -22,6 +24,32 @@ interface OrderTableRowProps {
 
 export function OrderTableRow({ order }: OrderTableRowProps) {
   const [isDetailsOpen, setIsDetailsOpen] = useState(false)
+  const queryClient = useQueryClient()
+
+  function updateOrderStatusOnCache(orderId: string, status: OrderStatus) {
+    const cachedOrders = queryClient.getQueriesData<getOrdersResponse>({
+      queryKey: ['orders'],
+    })
+
+    cachedOrders.forEach(([cachedKey, cachedData]) => {
+      if (!cachedData) return
+
+      queryClient.setQueryData<getOrdersResponse>(cachedKey, {
+        ...cachedData,
+        orders: cachedData.orders.map((cachedOrder) => {
+          if (cachedOrder.orderId === orderId) {
+            return {
+              ...cachedOrder,
+              status,
+            }
+          }
+
+          return cachedOrder
+        }),
+      })
+    })
+  }
+
   return (
     <TableRow>
       <TableCell>
