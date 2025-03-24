@@ -18,13 +18,39 @@ export function DayOrdersAmountCard() {
         <Utensils className="h-4 w-4 text-muted-foreground" />
       </CardHeader>
       <CardContent className="space-y-1">
-        <span className="text-2xl font-bold tracking-tight">
-          12
-          <p className="text-xs text-muted-foreground">
-            <span className="text-rose-500 dark:text-rose-400">-4%</span> em
-            relação a ontem
-          </p>
-        </span>
+        {dayOrdersAmount && (
+          <span className="text-2xl font-bold tracking-tight">
+            {dayOrdersAmount.amount.toLocaleString('pt-BR')}
+            <p className="text-xs text-muted-foreground">
+              {dayOrdersAmount.diffFromYesterday > 0 && (
+                <>
+                  <span className="text-emerald-500 dark:text-emerald-400">
+                    {dayOrdersAmount.diffFromYesterday}%
+                  </span>{' '}
+                  em relação a ontem
+                </>
+              )}
+
+              {dayOrdersAmount.diffFromYesterday < 0 && (
+                <>
+                  <span className="text-rose-500 dark:text-rose-400">
+                    {dayOrdersAmount.diffFromYesterday}%
+                  </span>{' '}
+                  em relação a ontem
+                </>
+              )}
+
+              {dayOrdersAmount.diffFromYesterday === 0 && (
+                <>
+                  <span className="text-foreground">
+                    -{dayOrdersAmount.diffFromYesterday}%
+                  </span>{' '}
+                  em relação a ontem
+                </>
+              )}
+            </p>
+          </span>
+        )}
       </CardContent>
     </Card>
   )
