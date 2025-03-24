@@ -4,6 +4,7 @@ import { ptBR } from 'date-fns/locale'
 import { ArrowRight, Search, X } from 'lucide-react'
 import { useState } from 'react'
 
+import { cancelOrder } from '@/api/cancel-order'
 import { getOrdersResponse } from '@/api/get-orders'
 import { OrderStatus } from '@/components/order-status'
 import { Button } from '@/components/ui/button'
@@ -49,6 +50,14 @@ export function OrderTableRow({ order }: OrderTableRowProps) {
       })
     })
   }
+
+  const { mutateAsync: cancelOrderFn, isPending: isCancelingOrder } =
+    useMutation({
+      mutationFn: cancelOrder,
+      onSuccess: (_, { orderId }) => {
+        updateOrderStatusOnCache(orderId, 'canceled')
+      },
+    })
 
   return (
     <TableRow>
