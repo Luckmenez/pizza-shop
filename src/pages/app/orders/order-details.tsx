@@ -27,6 +27,9 @@ export function OrderDetails({ orderId, open }: OrderDetailsProps) {
     queryFn: () => GetOrderDetail({ orderId }),
     enabled: open,
   })
+
+  if (!order) return null
+
   return (
     <DialogContent>
       <DialogHeader>
